@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/echarts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h3>美国</h3>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <hr>
+    <h3>四川</h3>
+    <div id="sichuan" style="width: 600px;height:400px;"></div>
+
+    <script>
+        // const mychart = echarts.init(document.getElementById("main"))
+        // // 接受矢量数据
+        // $.get("json/map/china.json",(res)=>{
+        //     console.log(res)
+        //     // 注册map
+        //     echarts.registerMap("chinaMap",res)
+        //     const option = {
+        //         geo:{
+        //             type:"map",
+        //             map:"chinaMap"
+        //         }
+        //     }
+        //     mychart.setOption(option)
+        // })
+
+        const mychart = echarts.init(document.getElementById("main"))
+        axios.get("https://s3-us-west-2.amazonaws.com/s.cdpn.io/95368/USA_geo.json").then((res)=>{
+            console.log(res.data)
+            echarts.registerMap("usaMap",res.data)
+            const option = {
+                geo:{
+                    type:"map",
+                    map:"usaMap",
+                    // 允许拖动和缩放
+                    roam:true,
+                    center:[-75.249281,41.863786],
+                    zoom:3
+                }
+            }
+            mychart.setOption(option)
+        })
+
+        const sichuan = echarts.init(document.getElementById("sichuan"))
+        axios.get("json/map/sichuan.json").then((res)=>{
+            console.log(res.data)
+            echarts.registerMap("sichuan",res.data)
+            const option = {
+                geo:{
+                    type:"map",
+                    map:"sichuan",
+                }
+            }
+            sichuan.setOption(option)
+        })
+    </script>
+</body>
+</html>

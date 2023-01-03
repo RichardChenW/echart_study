@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./lib/echarts.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script>
+        const bar = echarts.init(document.getElementById("main"))
+        const options = {
+            xAxis:{
+                data:["张三","李四","王五","闰土","小明","茅台","二妞","大强门"]
+            },
+            yAxis:{
+                type:"value",
+            },
+            series:[
+                {
+                    name:"语文成绩",
+                    type:"bar",
+                    data:[88,92,63,77,94,80,72,86],
+                    markLine:{}
+                }
+            ]
+        }
+        bar.setOption(options)
+    </script>
+</body>
+</html>

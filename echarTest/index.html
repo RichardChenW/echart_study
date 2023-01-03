@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./lib/echarts.js"></script>
+    <script src="./theme/infographic.js"></script>
+    <script src="./theme/roma.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <h3>dataset使用</h3>
+    <div id="dataSet" style="width: 600px;height:400px;"></div>
+    <div id="twoData" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'),null);
+    
+      window.onresize = function(){
+        myChart.resize();
+      };
+
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量']
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: '销量',
+            type: 'line',
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ],
+        emphasis: {
+            itemStyle: {
+              // 高亮时点的颜色。
+              color: 'red'
+            },
+            label: {
+              show: true,
+              // 高亮时标签的文字。
+              formatter: 'This is a emphasis label.'
+            }
+          }
+      };
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+      let chart1 = echarts.init(document.getElementById("dataSet"))
+      let chart1_option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                // 提供一份数据。
+                source: [
+                ['product', '2015', '2016', '2017'],
+                ['Matcha Latte', 43.3, 85.8, 93.7],
+                ['Milk Tea', 83.1, 73.4, 55.1],
+                ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                ['Walnut Brownie', 72.4, 53.9, 39.1]
+                ]
+            },
+            // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+            xAxis: { type: 'category' },
+            // 声明一个 Y 轴，数值轴。
+            yAxis: {},
+            // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+            series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+      }
+      chart1.setOption(chart1_option)
+
+      let chart2 = echarts.init(document.getElementById("twoData"))
+      let chart2_option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                source: [
+                    ['product', '2012', '2013', '2014', '2015'],
+                    ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+                    ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
+                    ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]
+                ]
+            },
+            xAxis: [
+                { type: 'category', gridIndex: 0 },
+                { type: 'category', gridIndex: 1 }
+            ],
+            yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+            grid: [{ bottom: '55%' }, { top: '55%' }],
+            series: [
+                // 这几个系列会出现在第一个直角坐标系中，每个系列对应到 dataset 的每一行。
+                { type: 'bar', seriesLayoutBy: 'row' },
+                { type: 'bar', seriesLayoutBy: 'row' },
+                { type: 'bar', seriesLayoutBy: 'row' },
+                // 这几个系列会出现在第二个直角坐标系中，每个系列对应到 dataset 的每一列。
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+                { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+            ]
+      }
+      chart2.setOption(chart2_option)
+    </script>
+</body>
+</html>
